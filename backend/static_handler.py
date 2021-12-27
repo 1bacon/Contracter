@@ -8,4 +8,4 @@ class static_handler:
 
     @cherrypy.expose
     def index(self):
-        return open(os.path.join(self.path, "../frontend/html/index.html"))
+        return open(os.path.join(self.path, "../frontend/html/index.html"), encoding="utf-8")

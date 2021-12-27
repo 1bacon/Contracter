@@ -23,8 +23,8 @@ config = {
 
 def start_server():
     cherrypy.config.update(config["global"])
-    cherrypy.tree.mount(static_handler(), "/", config["static"])
-    cherrypy.tree.mount(api(), "/api")  
+    cherrypy.tree.mount(static_handler(path), "/", config["static"])
+    cherrypy.tree.mount(api(path), "/api")  
     cherrypy.engine.start()
     cherrypy.engine.block()
 

@@ -1,8 +1,11 @@
 import cherrypy
 import os
-path = os.path.abspath(os.path.dirname(__file__))
 
 class static_handler:
+
+    def __init__(self, path) -> None:
+        self.path = path
+
     @cherrypy.expose
     def index(self):
-        return open(f"{path}/../frontend/index.html", "r")
+        return open(os.path.join(self.path, "../frontend/html/index.html"))

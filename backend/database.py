@@ -11,6 +11,11 @@ class DB:
     def get_connection(self):
         return sqlite3.connect(os.path.join(self.root_path, database_path))
 
+    def start_game(self, user):
+        if not self.get_user(user):
+            ...
+
+
     def add_user(self, name, password, pretty_name) -> Tuple[int,str]:
 
         if self.get_user(name):
@@ -25,16 +30,17 @@ class DB:
             except sqlite3.Error as e:
                 return (500,e.with_traceback())
 
-    def get_user(self, name : str=None) -> list:
+    def get_user(self, name : str=None) -> dict[str,str]:
         con = self.get_connection()
         with con:
             cur = con.cursor()
+            r = []
             if not name:
                 r = cur.execute("SELECT name, pretty_name FROM users")
-                return list(r)
             else:
                 r = cur.execute("SELECT name, pretty_name FROM users WHERE name=?", (name,))
-                return list(r)
+            out = {x[0]:x[1] for x in r}
+            return out
 
 
     def create_tables(self) -> None:

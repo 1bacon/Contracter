@@ -15,8 +15,6 @@ class api:
     @cherrypy.tools.json_out()
     def user(self, name=""):
         users = self.DB.get_user(name)
-        if len(users) == 1:
-            return users[0]
         return users
 
     @cherrypy.expose
